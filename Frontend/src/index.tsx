@@ -72,8 +72,8 @@ function Login({ setToken }) {
 		if (localPassword && localUsername) {
 			setUsername(localUsername);
 			setPassword(localPassword);
+			Login();
 		}
-		Login();
 	}, []);
 
 	useEffect(() => {
