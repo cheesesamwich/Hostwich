@@ -37,6 +37,6 @@ export function uploader(app) {
             return res.status(400).send("No file uploaded.");
         }
 
-        return res.json({ file: `${window.location.protocol}//${window.location.host}/cdn/${req.file.filename}` });
+        return res.json({ file: `https://hostwich.com/cdn/${req.file.filename}` });
     });
 }
