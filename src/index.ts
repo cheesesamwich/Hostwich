@@ -10,7 +10,11 @@ export const app = express();
 
 const port = 9203;
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 uploader(app);
 
