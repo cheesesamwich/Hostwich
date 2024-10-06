@@ -1,0 +1,13 @@
+services:
+  hostwich:
+    container_name: "hostwich-frontend"
+    ports:
+      - 5173:5173
+    build: .
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - NODE_ENV=production
+    restart: unless-stopped
+    volumes:
+      - ./:/hostwich
