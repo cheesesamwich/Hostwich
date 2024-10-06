@@ -66,25 +66,6 @@ function Login({ setToken }) {
 
 	const [password, setPassword] = useState('');
 
-	useEffect(() => {
-		const localPassword = localStorage.getItem('pass');
-		const localUsername = localStorage.getItem('user');
-		if (localPassword && localUsername) {
-			setUsername(localUsername);
-			setPassword(localPassword);
-			Login();
-		}
-	}, []);
-
-	useEffect(() => {
-		if (username != localStorage.getItem('user')) {
-			localStorage.setItem('user', username);
-		}
-		if (password != localStorage.getItem('pass')) {
-			localStorage.setItem('pass', password);
-		}
-	}, [username, password]);
-
 	async function Login() {
 		if (!username || !password) return;
 
@@ -97,6 +78,11 @@ function Login({ setToken }) {
 		}
 	}
 
+	useEffect(() => {
+		document.addEventListener('keydown', (e) => {
+			if (e.key == 'Enter') Login();
+		});
+	}, []);
 	return (
 		<div className="flex flex-col gap-2 items-center justify-center">
 			<input
