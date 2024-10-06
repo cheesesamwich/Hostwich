@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hostwich</title>
+		<script>
+			let token = '';
+			let uploadLink = '';
+
+			async function login(event) {
+				event.preventDefault();
+				const user = document.getElementById('username').value;
+				const pass = document.getElementById('password').value;
+
+				const response = await fetch(`/auth?user=${user}&pass=${pass}`);
+
+				if (!response.ok) {
+					const errorText = await response.text();
+					alert(`Login failed: ${errorText}`);
+					return;
+				}
+
+				const data = await response.json();
+				token = data.token;
+
+				if (token) {
+					document.getElementById('upload-section').style.display =
+						'block';
+				} else {
+					alert('Login failed: No token received.');
+				}
+			}
+
+			async function uploadFile(event) {
+				event.preventDefault();
+				const file = document.getElementById('file').files[0];
+				const formData = new FormData();
+				formData.append('file', file);
+
+				const response = await fetch(`/upload?token=${token}`, {
+					method: 'POST',
+					body: formData,
+				}).then((e) => e.text());
+
+				uploadLink = `${window.location.href.trim()}cdn/${encodeURIComponent(
+					response
+				)}`;
+
+				document.getElementById('linkresult').textContent = 'Link';
+
+				document.getElementById('linkhref').href = uploadLink;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Login to Upload</h1>
+		<form onsubmit="login(event)">
+			<input type="text" id="username" placeholder="Username" required />
+			<input
+				type="password"
+				id="password"
+				placeholder="Password"
+				required
+			/>
+			<button type="submit">Login</button>
+		</form>
+
+		<div id="upload-section" style="display: none">
+			<h2>Upload a File</h2>
+			<form onsubmit="uploadFile(event)">
+				<input type="file" id="file" required />
+				<button type="submit">Upload</button>
+			</form>
+			<a target="_blank" id="linkhref">
+				<h1 id="linkresult"></h1>
+			</a>
+		</div>
+	</body>
+</html>

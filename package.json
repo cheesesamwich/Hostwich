@@ -1,0 +1,20 @@
+{
+  "name": "hostwich",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsc && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4",
+    "express": "^4.21.0",
+    "fs": "0.0.1-security",
+    "multer": "1.4.5-lts.1",
+    "typescript": "^5.6.2"
+  }
+}

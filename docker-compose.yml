@@ -1,0 +1,13 @@
+services:
+  hostwich:
+    container_name: "hostwich"
+    ports:
+      - 9203:9203
+    build: .
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - NODE_ENV=production
+    restart: unless-stopped
+    volumes:
+      - ./:/hostwich
