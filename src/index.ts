@@ -17,5 +17,4 @@ cdn(app);
 
 app.get("/", (req, res) => { res.send("guh") });
 
-
 app.listen(port, () => console.log("we outta light bulbs"));
